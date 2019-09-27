@@ -9,7 +9,7 @@
     "url": "git://github.com/ephillipe/typeorm-revisions.git"
   },
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "build": "rimraf dist && tsc -p tsconfig.build.json ",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",

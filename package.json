@@ -1,12 +1,7 @@
 {
   "name": "typeorm-revisions",
-<<<<<<< HEAD
   "version": "0.0.1",
   "description": "Revisions History for [TypeORM](http://typeorm.io) Entities ",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ephillipe/typeorm-revisions.git"
@@ -16,16 +11,9 @@
   "bugs": {
     "url": "https://github.com/ephillipe/typeorm-revisions/issues"
   },
-  "homepage": "https://github.com/ephillipe/typeorm-revisions#readme"
-=======
-  "version": "1.0.0",
-  "description": "Jumia One :: CSV Exporter",
+  "homepage": "https://github.com/ephillipe/typeorm-revisions#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ephillipe/typeorm-revisions.git"
-  },
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json ",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -45,8 +33,6 @@
     "CSV",
     "Exporter"
   ],
-  "author": "ephillipe@gmail.com",
-  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "jest": "^24.9.0",
@@ -73,5 +59,4 @@
   "files": [
     "dist/**/*"
   ]
->>>>>>> 8b46e2a301b58b71b752dae7078ddbdc5cbfcabc
 }

@@ -1,5 +1,6 @@
 {
   "name": "typeorm-revisions",
+<<<<<<< HEAD
   "version": "0.0.1",
   "description": "Revisions History for [TypeORM](http://typeorm.io) Entities ",
   "main": "index.js",
@@ -16,4 +17,61 @@
     "url": "https://github.com/ephillipe/typeorm-revisions/issues"
   },
   "homepage": "https://github.com/ephillipe/typeorm-revisions#readme"
+=======
+  "version": "1.0.0",
+  "description": "Jumia One :: CSV Exporter",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ephillipe/typeorm-revisions.git"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json ",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "keywords": [
+    "CSV",
+    "Exporter"
+  ],
+  "author": "ephillipe@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+>>>>>>> 8b46e2a301b58b71b752dae7078ddbdc5cbfcabc
 }

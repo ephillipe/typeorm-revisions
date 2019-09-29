@@ -10,7 +10,10 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      { "name": "typescript-tslint-plugin" }
+    ]
   },
   "exclude": ["node_modules", "dist"]
 }

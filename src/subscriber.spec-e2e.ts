@@ -6,6 +6,8 @@ import {
   EventSubscriber,
   getConnection,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
+  VersionColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
 import { HistoryType, HistoryEntityInterface, HistoryActionColumn } from './commom-types';
@@ -16,7 +18,10 @@ describe('e2e test', () => {
   class TestEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id!: number;
-
+    @VersionColumn()
+    public version: number;
+    @CreateDateColumn()
+    createdAt: Date;
     @Column()
     public test!: string;
   }
@@ -24,13 +29,14 @@ describe('e2e test', () => {
   // tslint:disable-next-line: max-classes-per-file
   @Entity()
   class TestHistoryEntity extends TestEntity implements HistoryEntityInterface {
-    @Column()
-    public originalID!: number;
-
-    @HistoryActionColumn()
-    public action!: HistoryType;
     @PrimaryGeneratedColumn()
     public id!: number;
+    @Column()
+    public originalID!: number;
+    @CreateDateColumn()
+    makeActionAt: Date;
+    @HistoryActionColumn()
+    public action!: HistoryType;    
   }
 
   // tslint:disable-next-line: max-classes-per-file
@@ -58,13 +64,14 @@ describe('e2e test', () => {
   // tslint:disable-next-line: max-classes-per-file
   @Entity()
   class TestHistoryEntity2 extends TestEntity2 implements HistoryEntityInterface {
-    @Column()
-    public originalID!: number;
-
-    @HistoryActionColumn()
-    public action!: HistoryType;
     @PrimaryGeneratedColumn()
     public id!: number;
+    @Column()
+    public originalID!: number;
+    @CreateDateColumn()
+    makeActionAt: Date;
+    @HistoryActionColumn()
+    public action!: HistoryType;
   }
 
   // tslint:disable-next-line: max-classes-per-file
@@ -81,14 +88,12 @@ describe('e2e test', () => {
   }
   beforeEach(async () => {
     const connection = await createConnection({
-      database: 'test',
+      database: 'test.sql',
       dropSchema: true,
       entities: [TestEntity, TestHistoryEntity, TestEntity2, TestHistoryEntity2],
-      host: process.env.DB_HOST || 'localhost',
-      password: 'root',
       subscribers: [TestHistorySubscriber, TestHistorySubscriber2],
       synchronize: true,
-      type: (process.env.DB_TYPE || 'sqlite') as any,
+      type: 'sqlite' as any,
       username: 'root',
     });
     expect(connection).toBeDefined();

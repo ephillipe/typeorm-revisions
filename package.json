@@ -28,7 +28,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --runInBand --config=jest-e2e.config.js",
-    "test:e2e:cov": "jest --coverage --runInBand --config=jest-e2e.config.js"
+    "test:e2e:cov": "jest --coverage --runInBand --config=jest-e2e.config.js",
+    "test:e2e:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --config=jest-e2e.config.js"
   },
   "keywords": [
     "CSV",
@@ -39,7 +40,10 @@
     "@types/node": "^12.7.8",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "sqlite3": "^4.1.0",
     "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.3",

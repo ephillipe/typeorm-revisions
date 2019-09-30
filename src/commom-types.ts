@@ -11,12 +11,13 @@ export function HistoryActionColumn(): Function {
   return Column({
     default: HistoryType.CREATED,
     enum: Object.values(HistoryType),
-    type: 'enum',
+    type: 'simple-enum',
   });
 }
 
 export interface HistoryEntityInterface {
   id: number | string;
+  makeActionAt: Date;
   originalID: number | string;
   action: HistoryType;
 }

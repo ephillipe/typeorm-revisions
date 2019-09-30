@@ -1,2 +1,2 @@
-export { HistoryActionType, HistoryActionColumn, HistoryEntityInterface } from './commom-types';
-export { HistorySubscriber } from './subscriber';
+export { HistoryActionType, HistoryActionColumn, HistoryEntityInterface } from './commomTypes';
+export { HistorySubscriber } from './historySubscriber';

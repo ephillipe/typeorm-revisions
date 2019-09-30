@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { ulid } from 'ulid';
 import { HistoryActionType, HistoryEntityInterface, HistoryActionColumn } from './commom-types';
-import { HistorySubscriber } from "./HistorySubscriber";
+import { HistorySubscriber } from './subscriber';
 
 describe('e2e test', () => {
   @Entity()
@@ -36,7 +36,7 @@ describe('e2e test', () => {
     @CreateDateColumn()
     makeActionAt: Date;
     @HistoryActionColumn()
-    public action!: HistoryActionType;    
+    public action!: HistoryActionType;
   }
 
   // tslint:disable-next-line: max-classes-per-file
@@ -80,8 +80,8 @@ describe('e2e test', () => {
     public entity = TestEntity2;
     public historyEntity = TestHistoryEntity2;
 
-    public beforeUpdateHistory(history: TestHistoryEntity2): void {
-      if (history.deleted) {
+    public beforeHistory(action: HistoryActionType, history: TestHistoryEntity2): void {
+      if (action === HistoryActionType.UPDATED && history.deleted) {
         history.action = HistoryActionType.DELETED;
       }
     }

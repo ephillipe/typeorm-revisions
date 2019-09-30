@@ -1,11 +1,11 @@
-import { HistoryType } from './commom-types';
+import { HistoryActionType } from './commom-types';
 
 describe('HistoryType', () => {
   it('should get history action names', () => {
-    expect(Object.values(HistoryType)).toStrictEqual([
-      HistoryType.CREATED,
-      HistoryType.UPDATED,
-      HistoryType.DELETED,
+    expect(Object.values(HistoryActionType)).toStrictEqual([
+      HistoryActionType.CREATED,
+      HistoryActionType.UPDATED,
+      HistoryActionType.DELETED,
     ]);
   });
 });

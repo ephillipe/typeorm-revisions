@@ -1,6 +1,6 @@
 import { EntitySubscriberInterface, EntityManager, Column } from 'typeorm';
 
-export enum HistoryType {
+export enum HistoryActionType {
   CREATED = 'CREATED',
   UPDATED = 'UPDATED',
   DELETED = 'DELETED',
@@ -9,8 +9,8 @@ export enum HistoryType {
 // tslint:disable-next-line: ban-types
 export function HistoryActionColumn(): Function {
   return Column({
-    default: HistoryType.CREATED,
-    enum: Object.values(HistoryType),
+    default: HistoryActionType.CREATED,
+    enum: Object.values(HistoryActionType),
     type: 'simple-enum',
   });
 }
@@ -19,7 +19,7 @@ export interface HistoryEntityInterface {
   id: number | string;
   makeActionAt: Date;
   originalID: number | string;
-  action: HistoryType;
+  action: HistoryActionType;
 }
 
 export type HistoryEvent<HistoryEntity> = (history: HistoryEntity) => void | Promise<void>
@@ -32,10 +32,7 @@ export interface HistorySubscriberInterface<Entity, HistoryEntity>
   historyEntity: Function;
 
   createHistoryEntity(manager: EntityManager, entity: Entity): HistoryEntity | Promise<HistoryEntity>;
-  beforeInsertHistory(history: HistoryEntity):  void | Promise<void>;
-  afterInsertHistory(history: HistoryEntity): void | Promise<void>;
-  beforeUpdateHistory(history: HistoryEntity):  void | Promise<void>;
-  afterUpdateHistory(history: HistoryEntity): void | Promise<void>;
-  beforeRemoveHistory(history: HistoryEntity):  void | Promise<void>;
-  afterRemoveHistory(history: HistoryEntity): void | Promise<void>;
+  
+  beforeHistory(action: HistoryActionType, history: HistoryEntity):  void | Promise<void>;
+  afterHistory(action: HistoryActionType, history: HistoryEntity): void | Promise<void>;
 }

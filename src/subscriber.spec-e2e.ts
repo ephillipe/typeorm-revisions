@@ -10,8 +10,8 @@ import {
   VersionColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
-import { HistoryType, HistoryEntityInterface, HistoryActionColumn } from './commom-types';
-import { HistorySubscriber } from './subscriber';
+import { HistoryActionType, HistoryEntityInterface, HistoryActionColumn } from './commom-types';
+import { HistorySubscriber } from "./HistorySubscriber";
 
 describe('e2e test', () => {
   @Entity()
@@ -36,7 +36,7 @@ describe('e2e test', () => {
     @CreateDateColumn()
     makeActionAt: Date;
     @HistoryActionColumn()
-    public action!: HistoryType;    
+    public action!: HistoryActionType;    
   }
 
   // tslint:disable-next-line: max-classes-per-file
@@ -71,7 +71,7 @@ describe('e2e test', () => {
     @CreateDateColumn()
     makeActionAt: Date;
     @HistoryActionColumn()
-    public action!: HistoryType;
+    public action!: HistoryActionType;
   }
 
   // tslint:disable-next-line: max-classes-per-file
@@ -82,7 +82,7 @@ describe('e2e test', () => {
 
     public beforeUpdateHistory(history: TestHistoryEntity2): void {
       if (history.deleted) {
-        history.action = HistoryType.DELETED;
+        history.action = HistoryActionType.DELETED;
       }
     }
   }
@@ -106,7 +106,7 @@ describe('e2e test', () => {
     const histories = await TestHistoryEntity.find();
     expect(histories).toHaveLength(1);
     expect(histories[0].originalID).toBe(testEntity.id);
-    expect(histories[0].action).toBe(HistoryType.CREATED);
+    expect(histories[0].action).toBe(HistoryActionType.CREATED);
     expect(histories[0].test).toBe('test');
   });
 
@@ -117,10 +117,10 @@ describe('e2e test', () => {
 
     const histories = await TestHistoryEntity.find();
     expect(histories).toHaveLength(2);
-    expect(histories[0].action).toBe(HistoryType.CREATED);
+    expect(histories[0].action).toBe(HistoryActionType.CREATED);
     expect(histories[0].test).toBe('test');
 
-    expect(histories[1].action).toBe(HistoryType.UPDATED);
+    expect(histories[1].action).toBe(HistoryActionType.UPDATED);
     expect(histories[1].test).toBe('updated');
   });
   it('delete history', async () => {
@@ -129,8 +129,8 @@ describe('e2e test', () => {
 
     const histories = await TestHistoryEntity.find();
     expect(histories).toHaveLength(2);
-    expect(histories[0].action).toBe(HistoryType.CREATED);
-    expect(histories[1].action).toBe(HistoryType.DELETED);
+    expect(histories[0].action).toBe(HistoryActionType.CREATED);
+    expect(histories[1].action).toBe(HistoryActionType.DELETED);
   });
   it('should be delete action when deleted column is true', async () => {
     const testEntity = await TestEntity2.create({ test: 'test' }).save();
@@ -139,10 +139,10 @@ describe('e2e test', () => {
 
     const histories = await TestHistoryEntity2.find();
     expect(histories).toHaveLength(2);
-    expect(histories[0].action).toBe(HistoryType.CREATED);
+    expect(histories[0].action).toBe(HistoryActionType.CREATED);
     expect(histories[0].deleted).toBeFalsy();
 
-    expect(histories[1].action).toBe(HistoryType.DELETED);
+    expect(histories[1].action).toBe(HistoryActionType.DELETED);
     expect(histories[1].deleted).toBeTruthy();
   });
 

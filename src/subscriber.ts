@@ -1,20 +1,12 @@
 import { Column, EntityManager, EntityMetadata, InsertEvent, RemoveEvent, UpdateEvent } from 'typeorm';
-import { HistoryType, HistoryEntityInterface, HistorySubscriberInterface, HistoryEvent } from './commom-types';
+import { HistoryActionType, HistoryEntityInterface, HistorySubscriberInterface, HistoryEvent } from './commom-types';
 
 export abstract class HistorySubscriber<Entity, HistoryEntity extends HistoryEntityInterface & Entity>
   implements HistorySubscriberInterface<Entity, HistoryEntity> {
   // tslint:disable-next-line: no-empty
-  public beforeInsertHistory(history: HistoryEntity): void | Promise<void> {}
+  public beforeHistory(action: HistoryActionType, history: HistoryEntity): void | Promise<void> {}
   // tslint:disable-next-line: no-empty
-  public afterInsertHistory(history: HistoryEntity): void | Promise<void> {}
-  // tslint:disable-next-line: no-empty
-  public beforeUpdateHistory(history: HistoryEntity): void | Promise<void> {}
-  // tslint:disable-next-line: no-empty
-  public afterUpdateHistory(history: HistoryEntity): void | Promise<void> {}
-  // tslint:disable-next-line: no-empty
-  public beforeRemoveHistory(history: HistoryEntity): void | Promise<void> {}
-  // tslint:disable-next-line: no-empty
-  public afterRemoveHistory(history: HistoryEntity): void | Promise<void> {}
+  public afterHistory(action: HistoryActionType, history: HistoryEntity): void | Promise<void> {}
 
   // tslint:disable-next-line: ban-types
   public abstract get entity(): Function;
@@ -30,44 +22,21 @@ export abstract class HistorySubscriber<Entity, HistoryEntity extends HistoryEnt
   }
 
   public async afterInsert(event: InsertEvent<Entity>): Promise<void> {
-    await this.createHistory(
-      event.manager,
-      event.metadata,
-      this.beforeInsertHistory,
-      this.afterInsertHistory,
-      HistoryType.CREATED,
-      event.entity,
-    );
+    await this.createHistory(event.manager, event.metadata, HistoryActionType.CREATED, event.entity);
   }
 
   public async afterUpdate(event: UpdateEvent<Entity>): Promise<void> {
-    await this.createHistory(
-      event.manager,
-      event.metadata,
-      this.beforeUpdateHistory,
-      this.afterUpdateHistory,
-      HistoryType.UPDATED,
-      event.entity,
-    );
+    await this.createHistory(event.manager, event.metadata, HistoryActionType.UPDATED, event.entity);
   }
 
   public async beforeRemove(event: RemoveEvent<Entity>): Promise<void> {
-    await this.createHistory(
-      event.manager,
-      event.metadata,
-      this.beforeRemoveHistory,
-      this.afterRemoveHistory,
-      HistoryType.DELETED,
-      event.entity,
-    );
+    await this.createHistory(event.manager, event.metadata, HistoryActionType.DELETED, event.entity);
   }
 
   private async createHistory(
     manager: Readonly<EntityManager>,
     metadata: Readonly<EntityMetadata>,
-    beforeHistoryFn: HistoryEvent<HistoryEntity>,
-    afterHistoryFn: HistoryEvent<HistoryEntity>,
-    action: Readonly<HistoryType>,
+    action: Readonly<HistoryActionType>,
     entity?: Entity,
   ): Promise<void> {
     if (!entity || Object.keys(metadata.propertiesMap).includes('action')) {
@@ -82,8 +51,8 @@ export abstract class HistorySubscriber<Entity, HistoryEntity extends HistoryEnt
       Reflect.deleteProperty(history, primaryColumn.propertyName);
     }
 
-    await beforeHistoryFn(history);
+    await this.beforeHistory(history.action, history);
     await manager.save(history);
-    await afterHistoryFn(history);
+    await this.afterHistory(history.action, history);
   }
 }

@@ -1,2 +1,2 @@
-export { HistoryType as RevisionHistoryEnum } from "./commom-types";
-export { HistoryActionColumn, HistoryEntityInterface, HistoryEntitySubscriber } from "./history-entity";
+export { HistoryType as RevisionHistoryEnum, HistoryActionColumn, HistoryEntityInterface } from './commom-types';
+export { HistorySubscriber } from './subscriber';

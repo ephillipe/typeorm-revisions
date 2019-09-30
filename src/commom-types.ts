@@ -6,6 +6,7 @@ export enum HistoryType {
   DELETED = 'DELETED',
 }
 
+// tslint:disable-next-line: ban-types
 export function HistoryActionColumn(): Function {
   return Column({
     default: HistoryType.CREATED,
@@ -24,8 +25,10 @@ export type HistoryEvent<HistoryEntity> = (history: HistoryEntity) => void | Pro
 
 export interface HistorySubscriberInterface<Entity, HistoryEntity>
   extends EntitySubscriberInterface<Entity> {
-  entity: Entity;
-  historyEntity: HistoryEntity;
+  // tslint:disable-next-line: ban-types
+  entity: Function;
+  // tslint:disable-next-line: ban-types
+  historyEntity: Function;
 
   createHistoryEntity(manager: EntityManager, entity: Entity): HistoryEntity | Promise<HistoryEntity>;
   beforeInsertHistory(history: HistoryEntity):  void | Promise<void>;

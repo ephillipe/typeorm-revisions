@@ -73,11 +73,10 @@ describe('e2e test', () => {
     public entity = TestEntity2;
     public historyEntity = TestHistoryEntity2;
 
-    public beforeUpdateHistory(history: TestHistoryEntity2): TestHistoryEntity2 {
+    public beforeUpdateHistory(history: TestHistoryEntity2): void {
       if (history.deleted) {
         history.action = HistoryType.DELETED;
       }
-      return history;
     }
   }
   beforeEach(async () => {
@@ -89,7 +88,7 @@ describe('e2e test', () => {
       password: 'root',
       subscribers: [TestHistorySubscriber, TestHistorySubscriber2],
       synchronize: true,
-      type: (process.env.DB_TYPE || 'mysql') as any,
+      type: (process.env.DB_TYPE || 'sqlite') as any,
       username: 'root',
     });
     expect(connection).toBeDefined();

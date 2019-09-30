@@ -16,9 +16,12 @@ export abstract class HistorySubscriber<Entity, HistoryEntity extends HistoryEnt
   // tslint:disable-next-line: no-empty
   public afterRemoveHistory(history: HistoryEntity): void | Promise<void> {}
 
+  // tslint:disable-next-line: ban-types
   public abstract get entity(): Function;
+  // tslint:disable-next-line: ban-types
   public abstract get historyEntity(): Function;
 
+  // tslint:disable-next-line: ban-types
   public listenTo(): Function {
     return this.entity;
   }

@@ -10,10 +10,7 @@ import {
   VersionColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
-import { HistoryActionType } from './historyActionType';
-import { HistoryActionColumn } from './historyActionColumn';
-import { HistoryEntityInterface } from './historyEntityInterface';
-import { HistorySubscriber } from './historySubscriber';
+import { HistoryActionType, HistoryActionColumn, HistoryEntityInterface, HistorySubscriber } from './index';
 
 describe('e2e test', () => {
   @Entity()

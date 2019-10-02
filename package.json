@@ -1,6 +1,6 @@
 {
   "name": "typeorm-revisions",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Revisions History for [TypeORM](http://typeorm.io) Entities ",
   "repository": {
     "type": "git",

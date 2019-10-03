@@ -1,5 +1,5 @@
 export enum HistoryActionType {
   CREATED = 'CREATED',
   UPDATED = 'UPDATED',
-  DELETED = 'DELETED'
+  DELETED = 'DELETED',
 }

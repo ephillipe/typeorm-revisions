@@ -1,13 +1,13 @@
 {
   "name": "typeorm-revisions",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Revisions History for [TypeORM](http://typeorm.io) Entities ",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ephillipe/typeorm-revisions.git"
   },
   "author": "ephillipe@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ephillipe/typeorm-revisions/issues"
   },
@@ -32,8 +32,10 @@
     "test:e2e:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --config=jest-e2e.config.js"
   },
   "keywords": [
-    "CSV",
-    "Exporter"
+    "TypeORM",
+    "History",
+    "Revisions",
+    "History"
   ],
   "devDependencies": {
     "@types/jest": "^24.0.18",

@@ -47,7 +47,7 @@ class MyModelHistory extends MyModel implements HistoryEntityInterface {
 
 ```ts
 @EventSubscriber()
-class MyModelHistorySubscriber extends HistoryEntitySubscriber<MyModel, MyModelHistory> {
+class MyModelHistorySubscriber extends HistorySubscriber<MyModel, MyModelHistory> {
   public get entity() {
     return MyModel;
   }
@@ -88,7 +88,7 @@ You can hook before/after insert/update/remove history.
 
 ```ts
 @EventSubscriber()
-class MyModelHistorySubscriber extends HistoryEntitySubscriber<MyModel, MyModelHistory> {
+class MyModelHistorySubscriber extends HistorySubscriber<MyModel, MyModelHistory> {
   public get entity() {
     return MyModel;
   }
